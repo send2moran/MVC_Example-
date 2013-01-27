@@ -1,0 +1,52 @@
+﻿@model IList<Project.Models.Login>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Session Listing</title>
+
+     @Styles.Render("~/Content/css", "~/Content/css")
+
+</head>
+<body>
+    <div class="container">
+        <h1>Login History</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                    Username    
+                    </td>
+                    <td>
+                     Last Login Date
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (Project.Models.Login item in Model)
+            {
+                if(!String.IsNullOrEmpty(item.SuccessLoginDate)){
+                        <tr>
+                            <td>
+                                @item.Username
+                            </td>
+                            <td>
+                                @item.SuccessLoginDate
+                            </td>
+                        </tr>
+                }
+            }
+        </tbody>
+        </table>
+
+        <a href="/admin" class="btn btn-primary"><i class="icon-user icon-white"></i> Admin Page</a>
+        @Html.ActionLink("Logout", "Logout", new RouteValueDictionary(new { Controller = "Login", Action = "LogOut" }))
+    </div>
+</body>
+</html>

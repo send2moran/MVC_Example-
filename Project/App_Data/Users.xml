@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserRepository>
+  <User>
+    <Username>Admin</Username>
+    <IsAdmin>true</IsAdmin>
+    <Password>MTIz</Password>
+    <IsManuallyLocked>false</IsManuallyLocked>
+  </User>
+  <User>
+    <Username>a</Username>
+    <IsAdmin>false</IsAdmin>
+    <Password>YQ==</Password>
+    <IsManuallyLocked>false</IsManuallyLocked>
+  </User>
+</UserRepository>

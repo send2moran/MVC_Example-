@@ -1,0 +1,90 @@
+﻿@model List<Project.Models.User>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+    @Styles.Render("~/Content/css", "~/Content/css")
+</head>
+<body>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                    Username    
+                    </td>
+                    <td>
+                        lock
+                    </td>
+                    <td>
+                        admin
+                    </td>
+                    <td>
+                        delete
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (Project.Models.User item in Model)
+        {
+                <tr>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        <input type="checkbox" checked="@item.IsManuallyLocked" disabled="disabled"/>
+                        <a class="btn" href="admin/lockuser/@item.Username"><i class="icon-lock"></i> Lock User</a>
+                    </td>
+                   
+                    <td>
+                        <input type="checkbox" checked="@item.IsAdmin" disabled="disabled"/>
+                        <a class="btn" href="admin/makeadmin/@item.Username"><i class="icon-user"></i> Make Admin</a>
+                    </td>
+
+                     <td>
+                        <a class="btn btn-danger" href="admin/delete/@item.Username"><i class="icon-trash icon-white"></i> Delete User </a>
+                    </td>
+
+                </tr>
+        }
+        </tbody>
+        </table>
+
+
+         @if (TempData["UserExist"] != null)
+        {            
+        <div class="alert alert-error">
+            User Already exist ! 
+        </div>
+        }
+
+        <form action="admin/create" method="post">
+
+            <fieldset>
+            <legend>
+                create new user:
+            </legend>
+
+                <label>User Name</label><input required="required" type="text" name="username" />
+                <label>Password</label> <input required="required" type="text" name="password" />
+
+        </fieldset>
+
+
+            <input type="submit" class="btn " />
+            
+        </form>
+
+        @Html.ActionLink("Logout","Logout", new RouteValueDictionary(new { Controller = "Login", Action = "LogOut" }))
+
+
+    </div>
+</body>
+</html>

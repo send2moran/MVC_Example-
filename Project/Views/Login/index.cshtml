@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css", "~/Content/css")
+</head>
+<body>
+    <div class="container">
+        
+        <h1>Login Page</h1>
+        
+
+
+        @if (TempData["AdminOnly"] != null)
+        {
+        <div class="alert alert-info">
+         @TempData["AdminOnly"]
+        </div>
+        }
+
+
+        @if (ViewData["NotFound"] != null)
+        {
+        <div class="alert alert-error">
+         @ViewData["NotFound"]
+        </div>
+        }
+
+
+        @if (TempData["IsManuallyLocked"] == null && TempData["loginAttempt"] != null && TempData["useCaptcha"] == null)
+        {
+        <div class="alert alert-info">
+        Are you sure your Password is correct?
+        Note, this is your  @TempData["loginAttempt"] out of  @ViewData["configRetry"] attempts!
+        </div>
+        }
+
+
+        @if (TempData["IsManuallyLocked"] != null)
+        {            
+        <div class="alert alert-error">
+            @TempData["IsManuallyLocked"] 
+        </div>
+        }
+
+         @if (TempData["useCaptcha"] != null && (bool)TempData["useCaptcha"])
+        {
+            <div class="alert alert-error">you need to fill the captcha!</div>
+        }
+
+        @if (TempData["Blocked"] != null)
+        {            
+        <div class="alert alert-error">
+            @TempData["Blocked"]
+        </div>
+        }
+        
+
+
+        <form action="/login/enter" method="post">
+            <fieldset>
+            <legend>Please login to use the system</legend>
+            <label>User Name</label><input required="required" type="text" name="Username" />
+            <label>Password</label><input required="required" type="password" name="Password" />
+             
+             @if (TempData["useCaptcha"] != null && (bool)TempData["useCaptcha"]){
+                <label>fill what you see:</label>
+                <img src='/Captcha/Show' alt="" />
+                 <br />
+                <input type="text" name="Captcha" />
+             }
+            
+            </fieldset>
+            <input type="submit" class="btn " />
+        </form>
+    </div>
+</body>
+</html>
